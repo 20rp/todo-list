@@ -4,10 +4,7 @@ import './App.css';
 function App() {
 
   const [inputValue, setInputValue] = useState('')
-
-  const list = []
-
-
+  const [todos, setTodos] = useState([])
 
   function handleChange(event) {
     setInputValue(event.target.value)
@@ -16,9 +13,11 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    list.push(inputValue)
+    
+    const newTodos = [ ... todos, { title: inputValue} ]
+    setTodos(newTodos)
+
     setInputValue('')
-    console.log(list)
   }
 
 
@@ -30,13 +29,13 @@ function App() {
         <input value={ inputValue } onChange={ handleChange } onSubmit={ handleSubmit }/> 
       </form>
       <div className="list">
-        { list.map(item => {
+        { todos.map((item, index) => {
 
-          console.log(item)
+          const { title } = item
 
           return (
-            <h4>
-              {item}
+            <h4 key={index}>
+              {title}
             </h4>
           )
         })}
